@@ -1,6 +1,7 @@
 public class ListaArray implements EstruturaDeDados{
     private int[] elementos;
     private int contador;
+    private int chave;
 
     public ListaArray()
     {
@@ -30,7 +31,7 @@ public class ListaArray implements EstruturaDeDados{
         for(int i=  0, k = 0; i < arr_old.length; i++)
         {
             if(arr_old[i] != chave){
-                arr_new[k] = arr[i];
+                arr_new[k] = arr_old[i];
                 k++;
                 System.out.println("Elemento apagado.");
                 return true;
@@ -66,9 +67,9 @@ public class ListaArray implements EstruturaDeDados{
 
     @Override
     public int minimum() {
+        int number = 999999;
         for (int i = 0; i < elementos.length; i++)
         {
-            int number = 999999;
             if (elementos[i] < number)
             {
                 number = elementos[i];
@@ -80,14 +81,15 @@ public class ListaArray implements EstruturaDeDados{
 
     @Override
     public int maximum() {
+        int number = 0;
         for (int i = 0; i < elementos.length; i++)
         {
-            int number = 0;
             if (elementos[i] > number)
             {
                 number = elementos[i];
             }
         }
+        
         System.out.println("O maior elemento da lista é o " +  number);
         return 0;
     }
@@ -99,7 +101,7 @@ public class ListaArray implements EstruturaDeDados{
         {
             if (elementos[i] == chave)
             {
-                System.out.println("Elemento encontrado. Seu sucessor é " + elemento[i + 1]);
+                System.out.println("Elemento encontrado. Seu sucessor é " + elementos[i + 1]);
             }
             else
             {
@@ -116,7 +118,7 @@ public class ListaArray implements EstruturaDeDados{
         {
             if (elementos[i] == chave)
             {
-                System.out.println("Elemento encontrado. Seu predecessor é " + elemento[i - 1]);
+                System.out.println("Elemento encontrado. Seu predecessor é " + elementos[i - 1]);
             }
             else
             {

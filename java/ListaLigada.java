@@ -95,54 +95,127 @@ public class ListaLigada implements EstruturaDeDados{
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(i);
-            if (i == 50){
-                break;
-            }
-        }
-        System.out.println("fim");
+        ListaLigada lista = new ListaLigada();
+        lista.insert(10);
+        lista.insert(9);
+        lista.insert(8);
+        lista.insert(7);
+        lista.insert(6);
+        lista.insert(5);
+        System.out.println(lista.search(10));
+        System.out.println(lista.search(5));
+        System.out.println(lista.maximum());
+        lista.remover(10);
+        System.out.println(lista.maximum());
+        System.out.println(lista.minimum());
+        lista.remover(5);
+        System.out.println(lista.minimum());
+        System.out.println(lista.prodessor(7));
+        System.out.println(lista.sucessor(8));
+        System.out.println(lista.search(10));
+        System.out.println(lista.search(5));
+
     }
 
     @Override
     public boolean insert(int chave) {
-        // TODO Auto-generated method stub
+        this.insereInicio(chave);
         return false;
     }
 
     @Override
     public boolean delete(int chave) {
-        // TODO Auto-generated method stub
+        this.remover(chave);
         return false;
     }
 
     @Override
     public boolean search(int chave) {
-        // TODO Auto-generated method stub
+        if (this.procura(chave) == true) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public int minimum() {
-        // TODO Auto-generated method stub
-        return 0;
+        if (this.inicio == null) {
+            return 0;
+        }
+        int value = inicio.getValor();
+        if (inicio.getProximo() == null) {
+            return inicio.getValor();
+        }
+        return minimum(inicio.getProximo(), value);
+    }
+
+    public int minimum(No n, int valor) {
+        int variable = valor;
+        if (variable > n.getValor()) {
+            variable = n.getValor();
+        }
+        if (n.getProximo() != null) {
+            return minimum(n.getProximo(), variable);
+        }
+        return variable;
     }
 
     @Override
     public int maximum() {
-        // TODO Auto-generated method stub
-        return 0;
+        if (this.inicio == null) {
+            return 0;
+        }
+        int valor = inicio.getValor();
+        return maximum(inicio.getProximo(), valor);
+    }
+
+    public int maximum(No n, int valor) {
+        if (valor < n.getValor()) {
+            valor = n.getValor();
+        }
+        if (n.getProximo() != null) {
+            return maximum(n.getProximo(), valor);
+        }
+        return valor;
     }
 
     @Override
     public int sucessor(int chave) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (inicio.getValor() == chave) {
+            No variable = inicio.getProximo();
+            return variable.getValor();
+        }
+        No variable = inicio.getProximo();
+        return sucessor(variable, chave);
+    }
+
+    public int sucessor(No n, int chave) {
+        if (n.getValor() == chave) {
+            No variable = n.getProximo();
+            return variable.getValor();
+        }
+        No variable = n.getProximo();
+        return sucessor(variable, chave);
     }
 
     @Override
     public int prodessor(int chave) {
-        // TODO Auto-generated method stub
-        return 0;
+        if (inicio.getValor() == chave) {
+            return inicio.getValor();
+        }
+        No variable = inicio.getProximo();
+        if (variable.getValor() == chave) {
+            return inicio.getValor();
+        }
+        return prodessor(variable.getProximo(), chave);
+    }
+
+    public int prodessor(No n, int chave) {
+        No variable = n.getProximo();
+        if (variable.getValor() == chave) {
+            return n.getValor();
+        }
+
+        return prodessor(variable.getProximo(), chave);
     }
 }

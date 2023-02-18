@@ -1,65 +1,38 @@
 public class ListaArray implements EstruturaDeDados{
-    private int[] elementos;
+    
     private int contador;
-    private int chave;
-
-    public ListaArray()
-    {
+    private int[] elementos;
+    
+    public ListaArray(){
         elementos = new int[1000];
         contador = 0;
     }
 
     @Override
     public boolean insert(int chave) {
-        this.chave = chave;
-        if(contador <= 1000){
-            elementos[contador++]= chave;
+        if(contador < 1000){
+            elementos[contador] = chave;
+            contador++;
             return true;
-        }
-        else
-        {
-            System.out.println("Array overflow");
-            return false;
-        }
-    }
-
-    @Override
-    public boolean delete(int chave) { 
-        this.chave = chave;
-        int[] arr_old = elementos;
-        int[] arr_new = new int[arr_old.length - 1];
-        for(int i=  0, k = 0; i < arr_old.length; i++)
-        {
-            if(arr_old[i] != chave){
-                arr_new[k] = arr_old[i];
-                k++;
-                System.out.println("Elemento apagado.");
-                return true;
-            }
-            else
-            {
-                System.out.println("Elemento não encontrado.");
-                return false;
-            }
-
         }
         return false;
     }
 
     @Override
+    public boolean delete(int chave) {
+        for (int i = chave; i <= contador; i++) {
+            elementos[i] = elementos[i+1];
+        }
+        contador--;
+        return true;
+    }
+    
+
+    @Override
     public boolean search(int chave) {
-        this.chave = chave;
-        for (int i = 0; i < elementos.length; i++)
-        {
-            if (elementos[i] == chave)
-            {
-                System.out.println("Elemento encontrado. Está no índice: " + i + " Da lista.");
+        for (int i = 0; i <= contador; i++) {
+            if(elementos[i] == chave){
                 return true;
-            }
-            else
-            {
-                System.out.println("Elemento não encontrado.");
-                return false;
             }
         }
         return false;
@@ -67,45 +40,31 @@ public class ListaArray implements EstruturaDeDados{
 
     @Override
     public int minimum() {
-        int number = 999999;
-        for (int i = 0; i < elementos.length; i++)
-        {
-            if (elementos[i] < number)
-            {
-                number = elementos[i];
+        int aux = elementos[0];
+        for (int i = 0; i <= contador; i++) {
+            if(elementos[i] < aux && elementos[i] != 0){
+                aux = elementos[i];
             }
         }
-        System.out.println("O menor elemento da lista é o " +  number);
-        return 0;
+        return aux;
     }
 
     @Override
     public int maximum() {
-        int number = 0;
-        for (int i = 0; i < elementos.length; i++)
-        {
-            if (elementos[i] > number)
-            {
-                number = elementos[i];
+        int aux = elementos[0];
+        for (int i = 0; i <= contador; i++) {
+            if(elementos[i] > aux){
+                aux = elementos[i];
             }
         }
-        
-        System.out.println("O maior elemento da lista é o " +  number);
-        return 0;
+        return aux;
     }
 
     @Override
     public int sucessor(int chave) {
-        this.chave = chave;
-        for (int i = 0; i < elementos.length; i++)
-        {
-            if (elementos[i] == chave)
-            {
-                System.out.println("Elemento encontrado. Seu sucessor é " + elementos[i + 1]);
-            }
-            else
-            {
-                System.out.println("Elemento não encontrado.");
+        for (int i = 0; i < contador; i++) {
+            if(elementos[i] == chave){
+                return elementos[i+1];
             }
         }
         return 0;
@@ -113,16 +72,9 @@ public class ListaArray implements EstruturaDeDados{
 
     @Override
     public int prodessor(int chave) {
-        this.chave = chave;
-        for (int i = 0; i < elementos.length; i++)
-        {
-            if (elementos[i] == chave)
-            {
-                System.out.println("Elemento encontrado. Seu predecessor é " + elementos[i - 1]);
-            }
-            else
-            {
-                System.out.println("Elemento não encontrado.");
+        for (int i = 0; i < contador; i++) {
+            if(elementos[i] == chave){
+                return elementos[i-1];
             }
         }
         return 0;
@@ -130,5 +82,13 @@ public class ListaArray implements EstruturaDeDados{
 
     public static void main(String[] args) {
         ListaArray r = new ListaArray();
+        r.insert(10);
+        r.insert(5);
+        r.insert(9);
+        System.out.println(r.search(5));
+        System.out.println(r.maximum()); 
+        System.out.println(r.minimum());
+        System.out.println(r.prodessor(9));
+        System.out.println(r.sucessor(10));
     }
 }

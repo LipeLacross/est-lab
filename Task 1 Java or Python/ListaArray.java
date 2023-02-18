@@ -1,4 +1,3 @@
-import java.util.*;
 public class ListaArray implements EstruturaDeDados{
     
     private int contador;

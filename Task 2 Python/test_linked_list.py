@@ -1,6 +1,5 @@
 import unittest
-from python.LinkedList import LinkedList
-
+from LinkedList import LinkedList
 
 class test_linked_list(unittest.TestCase):
 
@@ -20,7 +19,7 @@ class test_linked_list(unittest.TestCase):
         self.assertTrue(list.search(1))
         self.assertTrue(list.search(2))
         self.assertTrue(list.search(3))
-        list.remove(1)
+        list.delete(1)
         self.assertFalse(list.search(1))
         self.assertTrue(list.search(2))
         self.assertTrue(list.search(3))
